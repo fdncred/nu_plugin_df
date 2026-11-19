@@ -3,7 +3,7 @@ use datafusion::arrow::compute::concat_batches;
 use futures::StreamExt;
 use nu_plugin::{EngineInterface, EvaluatedCall, PluginCommand};
 use nu_protocol::{Example, LabeledError, PipelineData, Signature, SyntaxShape, Type};
-use rand::seq::SliceRandom;
+use rand::{RngExt, seq::SliceRandom};
 
 use crate::commands::category;
 use crate::convert::dataframe_from_batches;
@@ -100,6 +100,3 @@ async fn sample_stream(
         .map_err(|e| datafusion::error::DataFusionError::ArrowError(Box::new(e), None))?;
     Ok(vec![concatenated])
 }
-
-// rng.random_range needs Rng trait
-use rand::Rng;

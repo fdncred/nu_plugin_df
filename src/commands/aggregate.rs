@@ -60,7 +60,7 @@ impl PluginCommand for Aggregate {
         let groups: Vec<String> = call.get_flag("group")?.unwrap_or_default();
         let aggs: Vec<String> = call.get_flag("agg")?.unwrap_or_default();
         let df = resolve_df(plugin, input, span)?;
-        let group_expr = groups.iter().map(|c| col(c)).collect();
+        let group_expr = groups.iter().map(col).collect();
         let mut agg_expr = Vec::new();
         for sql in &aggs {
             agg_expr.push(parse_sql_expr(&df, sql, span)?);

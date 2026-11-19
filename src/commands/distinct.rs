@@ -54,7 +54,7 @@ impl PluginCommand for Distinct {
         let out = if cols.is_empty() {
             df.distinct().map_err(|e| from_datafusion(e, span))?
         } else {
-            let exprs: Vec<_> = cols.iter().map(|c| col(c)).collect();
+            let exprs: Vec<_> = cols.iter().map(col).collect();
             df.distinct_on(exprs.clone(), exprs, None)
                 .map_err(|e| from_datafusion(e, span))?
         };

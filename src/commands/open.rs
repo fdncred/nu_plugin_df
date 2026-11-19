@@ -187,8 +187,11 @@ fn scan(
             plugin.block_on(plugin.ctx.read_csv(path, opts), span)
         }
         FileKind::Ndjson => {
-            let mut opts = JsonReadOptions::default();
-            opts.file_extension = ".jsonl";
+            let mut opts = JsonReadOptions {
+                file_extension: ".jsonl",
+                ..Default::default()
+            };
+
             if let Some(n) = call.get_flag::<i64>("infer-schema")? {
                 opts.schema_infer_max_records = n.max(0) as usize;
             }
