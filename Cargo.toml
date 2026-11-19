@@ -3,40 +3,43 @@ name = "nu_plugin_df"
 version = "0.1.0"
 edition = "2024"
 rust-version = "1.95.0"
-license = "MIT"
-authors = ["The Nushell Project Developers"]
 description = "Nushell plugin for Apache DataFusion dataframes and SQL"
-repository = "https://github.com/fdncred/nu_plugin_df"
 readme = "README.md"
-keywords = ["nushell", "plugin", "datafusion", "dataframe", "sql"]
+repository = "https://github.com/fdncred/nu_plugin_df"
+license = "MIT"
+keywords = ["dataframe", "datafusion", "nushell", "plugin", "sql"]
 categories = ["command-line-utilities"]
-
-[[bin]]
-name = "nu_plugin_df"
-path = "src/main.rs"
 
 [lib]
 name = "nu_plugin_df"
 path = "src/lib.rs"
 
-[dependencies]
-nu-plugin = { path = "../nushell/crates/nu-plugin" }
-nu-protocol = { path = "../nushell/crates/nu-protocol", features = ["plugin"] }
+[[bin]]
+name = "nu_plugin_df"
+path = "src/main.rs"
 
-datafusion = { version = "55.0.0", default-features = true, features = [
-    "parquet",
-    "nested_expressions",
-] }
-tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
-uuid = { version = "1", features = ["v4", "serde"] }
-serde = { version = "1", features = ["derive"] }
-typetag = "0.2"
-log = "0.4"
-env_logger = "0.11"
+[dependencies]
+nu-plugin = "0.117.0"
+nu-protocol = "0.117.0"
+
 chrono = { version = "0.4", default-features = false, features = ["std"] }
-indexmap = "2"
-rand = "0.9"
+datafusion = {
+  version = "55.3.0",
+  default-features = true,
+  features = [
+    "nested_expressions",
+    "parquet",
+  ]
+}
+env_logger = "0.11"
 futures = "0.3"
+indexmap = "2"
+log = "0.4"
+rand = "0.10"
+serde = { version = "1", features = ["derive"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+typetag = "0.2"
+uuid = { version = "1", features = ["serde", "v4"] }
 
 [dev-dependencies]
 tempfile = "3"
@@ -52,6 +55,6 @@ opt-level = 3
 debug = 1
 
 [profile.release]
+strip = true
 lto = true
 codegen-units = 1
-strip = true
