@@ -11,7 +11,7 @@ use crate::cache::Cache;
 use crate::error::shell;
 use crate::plugin::DfPlugin;
 
-pub const TYPE_NAME: &str = "dataframe";
+pub const TYPE_NAME: &str = "datafusion_dataframe";
 pub const PREVIEW_ROWS: usize = 20;
 pub const COLLECT_DEFAULT: usize = 10_000;
 
